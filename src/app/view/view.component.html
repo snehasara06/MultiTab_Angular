@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Topnav with sidebar</title>
+    <!-- Import bootstrap cdn -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Import jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+        </script>
+    <!-- Import popper.js cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+        </script>
+    <!-- Import javascript cdn -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+        </script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-2" id="green">
+                <h4>Menu</h4>
+                <a href="/form">
+                    <i class="fas fa-user-plus"></i> &nbsp;
+                    <span class="text">Add Student</span>
+                </a>
+                <br />
+                <br />
+                <a href="/view">
+                    <i class="fas fa-list"></i> &nbsp;
+                    <span class="text">View Students</span>
+                </a>
+                <br />
+            </div>
+            <div class="col-10" style="padding: 0;">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand" href="/">
+                        <img src="../../assets/images/kgisl-logo.png" height="45" alt="MDB Logo" loading="lazy" />
+                    </a>
+                    <!-- Hamburger button that toggles the navbar-->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+
+                        </div>
+                    </div>
+                </nav>
+                <div class="container">
+                    <h3>List of Students</h3>
+                    <!-- <table class="table"> -->
+                    <table class="table">
+
+                        <thead class="table-dark">
+                            <tr>
+                                <th >S.No</th>
+                                <th >Name</th>
+                                <th >Email ID</th>
+                                <th >Mobile</th>
+                                <th >Address</th>
+                                <th >Qualification</th>
+                                <th >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let student of students; let i = index">
+                                <td>{{student.student_id}}</td> 
+                                <td>{{ student.firstName }} {{ student.lastName }}</td>
+                                <td>{{ student.email }}</td>
+                                <td>{{ student.phone }}</td> 
+                                <td>{{ student.address }}, {{ student.city }}, 
+                                    <br>{{ student.state }}, {{ student.pincode }} </td>
+                                <td>{{ student.degree }} 
+                                    <br>({{ student.board }} - {{ student.year }})</td>
+                                <td>
+                                    <!-- <div class="example-button-container"> -->
+
+                                    <a (click)="editStudent()">
+                                        <!-- <i class="fas fa-pen hand-cursor"></i>  -->
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        &nbsp;
+                                    </a>
+                                    
+
+                                    &nbsp;
+                                  
+                                    <a (click)="deleteStudent()">
+                                        <!-- <i class="fas fa-trash hand-cursor" style="color: red;"></i>  -->
+                                        <i class="fa-solid fa-trash-can" style="color: rgb(230, 50, 50);"></i>
+                                        &nbsp;
+                                    </a>
+                                  
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

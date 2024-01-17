@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Topnav with sidebar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-2" id="green">
+                <h4>Menu</h4>
+                <a href="/form">
+                    <i class="fas fa-user-plus" style='font-size:30px'></i> &nbsp;
+                    <span class="text">Add </span>
+                </a>
+                <br />
+                <br />
+                <a href="/table">
+                    <i class="fas fa-list" style='font-size:30px'></i> &nbsp;
+                    <span class="text">View </span>
+                </a>
+            </div>
+            <div class="col-10" style="padding: 0;">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand" href="/">
+                        <img src="../../assets/images/kgisl-logo.png" height="45" alt="MDB Logo" loading="lazy" />
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+
+                        </div>
+                    </div>
+                </nav>
+                <div class="container">
+                    <h3>List of Students</h3>
+                    <div class="container">
+                        <table mat-table [dataSource]="dataSource">
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef>Id </th>
+                                <td mat-cell *matCellDef="let element"> {{element.student_id}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef> Name </th>
+                                <td mat-cell *matCellDef="let element"> {{ element.firstName + ' ' + element.lastName}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="email">
+                                <th mat-header-cell *matHeaderCellDef> Email </th>
+                                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="mobile">
+                                <th mat-header-cell *matHeaderCellDef> Mobile </th>
+                                <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="address">
+                                <th mat-header-cell *matHeaderCellDef> Address </th>
+                                <td mat-cell *matCellDef="let element"> {{element.address}}<br>{{ element.state
+                                    +'-'+element.pincode }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="degree">
+                                <th mat-header-cell *matHeaderCellDef> Degree & Board </th>
+                                <td mat-cell *matCellDef="let element"> {{element.degree +'-'+element.board}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="subject">
+                                <th mat-header-cell *matHeaderCellDef> Subject & Score </th>
+                                <td mat-cell *matCellDef="let element"> {{element.subject +'-'+element.percentage}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="technicalSkill">
+                                <th mat-header-cell *matHeaderCellDef> TechnicalSkill </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <li *ngFor="let co of element.courses"> {{co.name}}</li>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="actions">
+                                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                                <td mat-cell *matCellDef="let element" class="actions-cell">
+                                    <button mat-icon-button (click)="editStudent(element)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button (click)="deleteStudent(element)">
+                                        <mat-icon color="warn">delete</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                            aria-label="Select page of periodic elements">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

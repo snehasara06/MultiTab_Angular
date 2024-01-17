@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Topnav with sidebar</title>
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
+
+</head>
+
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-2" id="green">
+                <h4>Menu</h4>
+                <a href="/form">
+                    <i class="fas fa-user-plus" style='font-size:30px'></i> &nbsp;
+                    <span class="text">Add </span>
+                </a>
+                <br />
+                <br />
+                <a href="/table">
+                    <i class="fas fa-list" style='font-size:30px'></i> &nbsp;
+                    <span class="text">View </span>
+                </a>
+            </div>
+            <div class="col-10" style="padding: 0;">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand" href="/">
+                        <img src="../../assets/images/kgisl-logo.png" height="45" alt="MDB Logo" loading="lazy" />
+                    </a>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                        </div>
+                    </div>
+                </nav>
+                <!-- <div class="container"> -->
+                <mat-tab-group class="custom-tab-group" [selectedIndex]="selectedTabIndex" backgroundColor="primary">
+                    <mat-tab label="Personal Details">
+                        <div class="container">
+                            <form [formGroup]="userForm">
+                                <div class="formContainer">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div>
+                                                <label class="form-label">First Name</label>
+                                                <input matInput formControlName="firstName" class="form-control"
+                                                    pattern="[a-zA-Z]+" minlength="4" required>
+                                                <mat-error
+                                                    *ngIf="userForm.controls['firstName'].hasError('required') && userForm.controls['firstName'].touched">
+                                                    First Name is required.
+                                                </mat-error>
+                                                <mat-error *ngIf="userForm.controls['firstName'].hasError('pattern')">
+                                                    Only alphabets allowed.
+                                                </mat-error>
+                                                <mat-error *ngIf="userForm.controls['firstName'].hasError('minlength')">
+                                                    Minimum length is 4.
+                                                </mat-error>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">Last Name</label>
+                                            <input matInput formControlName="lastName" class="form-control" required>
+                                            <mat-error
+                                                *ngIf="userForm.controls['lastName'].hasError('required') && userForm.controls['lastName'].touched">
+                                                Last Name is required.
+                                            </mat-error>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="form-label">Date of Birth</label>
+                                            <mat-form-field>
+                                                <input matInput [matDatepicker]="picker" formControlName="dob"
+                                                    [max]="today" required>
+                                                <mat-hint style="color: white;">MM/DD/YYYY</mat-hint>
+                                                <mat-datepicker-toggle matIconSuffix
+                                                    [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                                <mat-error *ngIf="userForm.controls['dob']?.hasError('required')">
+                                                    Date of Birth is required.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        <div class="col-md-6 mb-4">
+                                            <label>Gender: </label>
+                                            <br>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" value="Female"
+                                                    formControlName="gender" />
+                                                <label class="form-check-label">Female</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" value="Male"
+                                                    formControlName="gender" />
+                                                <label class="form-check-label">Male</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="form-label">Email</label>
+                                            <input matInput formControlName="email" class="form-control"
+                                                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+                                            <mat-error
+                                                *ngIf="userForm.controls['email']?.hasError('required') && userForm.controls['email'].touched">
+                                                Email is required.
+                                            </mat-error>
+                                            <mat-error *ngIf="userForm.controls['email'].hasError('pattern')">
+                                                Invalid email.
+                                            </mat-error>
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">Phone Number</label>
+                                            <input matInput formControlName="phone" required class="form-control"
+                                                pattern="^[0-9]{10}$" maxlength="10">
+                                            <mat-error
+                                                *ngIf="userForm.controls['phone'].hasError('required') && userForm.controls['phone'].touched">
+                                                Mobile Number is required.
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="userForm.controls['phone'].hasError('pattern') && userForm.controls['phone'].touched">
+                                                Enter 10-digit number.
+                                            </mat-error>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <label class="form-label">Address</label>
+                                            <textarea matInput formControlName="address" class="form-control" rows="1"
+                                                required></textarea>
+                                            <mat-error
+                                                *ngIf="userForm.controls['address'].hasError('required') && userForm.controls['address'].touched">
+                                                Address is required.
+                                            </mat-error>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label">State</label>
+                                            <input matInput formControlName="state" class="form-control" required>
+                                            <mat-error
+                                                *ngIf="userForm.controls['state'].hasError('required') && userForm.controls['state'].touched">
+                                                State is required.
+                                            </mat-error>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label">Pincode</label>
+                                            <input matInput #postalCode maxlength="6" formControlName="pincode"
+                                                pattern="^[0-9]{6}$" class="form-control" required>
+                                            <mat-error
+                                                *ngIf="userForm.controls['pincode'].hasError('required') && userForm.controls['pincode'].touched">
+                                                Pincode is required.
+                                            </mat-error>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    <br>
+                                    <div class="button-container">
+                                        <button mat-raised-button color="primary"
+                                            (click)="validateAndMoveToNextTab1()">Next</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </mat-tab>
+
+                    <!-- <div class="container"> -->
+                    <mat-tab label="Academic Details">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- <h3>Qualification</h3> -->
+                                <form [formGroup]="academicForm" style="overflow-x: hidden;">
+                                    <div class="formContainer">
+                                        <h3 mat-raised-button color="primary"
+                                            style="margin-left: 30%; color: white; font-size: larger;font-weight: 500;">
+                                            Enter Qualification
+                                        </h3>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Degree</label>
+                                                <input matInput formControlName="degree" class="form-control" required>
+                                                <mat-error
+                                                    *ngIf="academicForm.controls['degree'].hasError('required') && academicForm.controls['degree'].touched">
+                                                    Degree is required.
+                                                </mat-error>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Board/University</label>
+                                                <input matInput formControlName="board" class="form-control" required>
+                                                <mat-error
+                                                    *ngIf="academicForm.controls['board'].hasError('required') && academicForm.controls['board'].touched">
+                                                    Board/University is required.
+                                                </mat-error>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label class="form-label">Subject</label>
+                                                <input matInput formControlName="subject" class="form-control">
+                                                <mat-error
+                                                    *ngIf="academicForm.controls['subject'].hasError('required') && academicForm.controls['subject'].touched">
+                                                    Subject is required.
+                                                </mat-error>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Year</label>
+
+                                                <input matInput formControlName="year" class="form-control" type="year">
+                                                <mat-error
+                                                    *ngIf="academicForm.controls['year'].hasError('required') && academicForm.controls['year'].touched">
+                                                    Year is required.
+                                                </mat-error>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Percentage</label>
+
+                                                <input matInput formControlName="percentage" class="form-control">
+                                                <mat-error
+                                                    *ngIf="academicForm.controls['percentage'].hasError('required') && academicForm.controls['percentage'].touched">
+                                                    Percentage is required.
+                                                </mat-error>
+                                            </div>
+                                        </div>
+                                        <!-- <br> -->
+                                        <button mat-raised-button color="primary" (click)="addQ()"
+                                            style="margin-left: 45%; margin-top: 10px;" class="customBtn">Add</button>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label>Technical Skill</label>
+                                                <div class="form-control">
+                                                    <mat-select placeholder="Select skill"
+                                                        formControlName="technicalSkills" name="technicalSkills"
+                                                        multiple required>
+                                                        <mat-option *ngFor="let skills of skillList"
+                                                            [value]="skills">{{skills}}</mat-option>
+                                                    </mat-select>
+                                                </div>
+                                                <mat-error
+                                                    *ngIf="academicForm.controls['technicalSkills'].hasError('required') && academicForm.controls['technicalSkills'].touched">
+                                                    Skills is required.
+                                                </mat-error>
+                                            </div>
+
+
+                                        </div>
+                                        <br>
+                                        <div class="button-container">
+                                            <button mat-raised-button color="primary" (click)="moveToPreviousTab()"
+                                                class="customBtn">Back</button>
+                                            &nbsp;
+                                            <button mat-raised-button color="primary"
+                                                (click)="validateAndMoveToNextTab2()" class="customBtn">Next</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="half-page-container">
+                                    <mat-card class="half-page-card">
+                                        <mat-card-content>
+                                            <b> Student Details </b>
+                                            <br>
+                                            <ng-container *ngIf="userFormData">
+                                                Name:&nbsp; {{ userFormData.firstName }} {{ userFormData.lastName }}
+                                                <br>
+                                                Email Id:&nbsp; {{ userFormData.email }}
+                                                <br>
+                                                Phone Number:&nbsp; {{ userFormData.phone }}
+                                                <br>
+                                                Address:&nbsp; {{ userFormData.address }}
+                                                <br>
+                                                Date of Birth: &nbsp;{{ userFormData.dob | date: 'MM/dd/yyyy' }}
+                                                <br>
+                                                Gender: &nbsp;{{ userFormData.gender }}
+                                                <br>
+                                            </ng-container>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <!-- </div> -->
+                    <mat-tab label="Submission">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form [formGroup]="submissionForm">
+                                    <div class="formContainer">
+                                        <div class="row" style="margin-left: 2%;">
+                                            <div class="col-md-10">
+                                                <label>Upload documents &nbsp;</label>
+                                                <div>
+                                                    <label *ngIf="!hasFileUploaded">
+                                                        <input type="file" #fileInput class="form-control"
+                                                            formControlName="uploadedFile" required=""
+                                                            (change)="onFileSelected($event)">
+                                                    </label>
+                                                  
+                                                    <div *ngIf="showAddedImage && hasFileUploaded">
+                                                        <ng-container *ngIf="isPDF(fileType); else showImage">
+                                                            <iframe *ngIf="url" [src]="url" width="400" height="200"></iframe>
+                                                        </ng-container>
+                                                        <ng-template #showImage>
+                                                            <img *ngIf="url" [src]="url" height="100" width="300">
+                                                        </ng-template>
+                                                    </div>
+                                    
+                                                    <br>   
+                                                    <button *ngIf="hasFileUploaded" (click)="removeFile()"
+                                                        class="btn btn-warning">Remove</button>
+                                                    
+                                                    &nbsp;
+                                                    <button *ngIf="hasFileUploaded"  class="btn btn-secondary" (click)="download()">Download</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row" style="margin-left: 2%;">
+                                            <div class="col-md-10">
+                                                <mat-card class="result">
+                                                    <mat-card-content>
+                                                        <h2 style="margin-left: 30%;">Confirmation</h2>
+                                                        <!-- <section class="example-section"> -->
+                                                        <mat-checkbox class="example-margin" required
+                                                            formControlName="confirmation">
+
+                                                            I hereby declare that all the mentioned details and
+                                                            documents uploaded
+                                                            are true </mat-checkbox>
+                                                        <!-- </section> -->
+
+
+                                                    </mat-card-content>
+
+                                                </mat-card>
+                                                <mat-error
+                                                    *ngIf="submissionForm.controls['confirmation'].hasError('required') && submissionForm.controls['confirmation'].touched">
+                                                    Confirmation is required.
+                                                </mat-error>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="button-container">
+
+                                            <button mat-raised-button color="primary"
+                                                (click)="moveToPreviousTab()">Back</button>
+                                            &nbsp;
+                                            <!-- <button mat-raised-button color="primary"
+                                                (click)="validateAndMoveToNextTab3()">Submit</button> -->
+                                            <button mat-raised-button color="primary" (click)="submit()">
+                                                {{ editMode ? 'Update' : 'Submit' }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="half-page-container">
+                                    <mat-card class="half-page-card">
+                                        <mat-card-content>
+                                            <b> Personal Details </b>
+                                            <br>
+                                            <ng-container *ngIf="userFormData">
+                                                Name:&nbsp; {{ userFormData.firstName }} {{ userFormData.lastName }}
+                                                <br>
+                                                Email Id:&nbsp; {{ userFormData.email }}
+                                                <br>
+                                                Phone Number:&nbsp; {{ userFormData.phone }}
+                                                <br>
+                                                Address:&nbsp; {{ userFormData.address }}
+                                                <br>
+                                                Date of Birth: &nbsp;{{ userFormData.dob | date: 'MM/dd/yyyy' }}
+                                                <br>
+                                                Gender: &nbsp;{{ userFormData.gender }}
+                                                <br>
+                                            </ng-container>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                                <div class="half-page-container">
+                                    <mat-card class="half-page-card">
+                                        <mat-card-content>
+                                            <b> Academic Details </b>
+                                            <br>
+                                            <ng-container *ngIf="academicFormData">
+                                                Degree:&nbsp; {{ academicFormData.degree }}
+                                                <br>
+                                                Board:&nbsp; {{ academicFormData.board }}
+                                                <br>
+                                                Subject:&nbsp; {{ academicFormData.subject }}
+                                                <br>
+                                                Year:&nbsp; {{ academicFormData.year }}
+                                                <br>
+                                                Percentage: &nbsp;{{ academicFormData.percentage }}
+                                                <br>
+                                                Technical Skills: &nbsp;
+                                                {{academicFormData?.technicalSkills}}
+                                                &nbsp;
+                                                &nbsp;
+                                                <br>
+                                            </ng-container>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

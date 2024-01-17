@@ -1,0 +1,8 @@
+
+
+:host ::ng-deep .mat-mdc-tab-body-content {
+    overflow-x: hidden !important;
+    /* height: 110%; */
+    overflow-y: hidden !important;
+    /* Add other styles as needed */
+}

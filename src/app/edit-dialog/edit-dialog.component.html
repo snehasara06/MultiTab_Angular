@@ -1,0 +1,44 @@
+<!-- mat-dialog-content -->
+<!-- 1. component provided by Angular Material that is used within a Material Dialog
+     2. container element specifically designed to hold the content of a dialog
+     3. three main sections: header, content, and footer. -->
+
+<h2 mat-dialog-title>Edit Student</h2>
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col-md-5">
+            <input matInput [(ngModel)]="firstName" placeholder="First Name" class="form-control">
+        </div>
+        &nbsp;
+        &nbsp;
+        <div class="col-md-4">
+            <input matInput [(ngModel)]="lastName" placeholder="Last Name" class="form-control">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-5">
+            <input matInput [(ngModel)]="email" placeholder="Email" class="form-control">
+        </div>
+        <div class="col-md-4">
+            <input matInput [(ngModel)]="phone" placeholder="Phone" class="form-control">
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <input matInput [(ngModel)]="address" placeholder="Address" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <input matInput [(ngModel)]="state" placeholder="State" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <input matInput [(ngModel)]="pincode" placeholder="Pincode" class="form-control">
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button  color="warn" (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary"  (click)="onSaveClick()">Save</button>
+</div>
